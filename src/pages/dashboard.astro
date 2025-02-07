@@ -6,7 +6,7 @@ import QRCode from 'qrcode'
 
 // information that will be displayed in dashboard page
 let userUID;
-let userEmail;
+let userEmail: string;
 let userName;
 let userPhoto;
 let registered = false
@@ -46,7 +46,7 @@ try {
   }
 
   userUID = user.uid;
-  userEmail = user.email as string;
+  userEmail = user.email;
   userName = user.displayName;
   userPhoto = user.photoURL
 
@@ -70,7 +70,7 @@ try {
   return Astro.redirect("/");
 }
 
-const uidDataURI = await QRCode.toDataURL(userUID)
+const uidDataURI = await QRCode.toDataURL(userEmail, { errorCorrectionLevel: 'H' })
 ---
 
 <DashboardLayout>
